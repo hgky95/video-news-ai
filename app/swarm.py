@@ -8,7 +8,6 @@ from app.tools import download_from_url
 from swarmzero.sdk_context import SDKContext
 
 config_path = "./app/swarmzero_config.toml"
-# config_path = "../swarmzero_config.toml"
 sdk_context = SDKContext(config_path=config_path)
 
 livepeer_swarm = Swarm(
@@ -31,9 +30,9 @@ livepeer_swarm = Swarm(
        You should use save_to_file tool for this purpose
 
     3. Scene Image Generator Agent and Scene Image to Video Generator Agent will return URLs or lists of URLs. 
-       You should use download_from_url tool to download images and videos, the urls should start with `https://obj-store.livepeer.cloud/livepeer-cloud-ai-images`
+       Use download_from_url tool to download images and videos, the urls should start with `https://obj-store.livepeer.cloud/livepeer-cloud-ai-images`
 
-    4. Use list_files and read_from_file tools to access and review previous outputs.
+    4. Use list_files and read_from_file tools to access and review previous outputs. You always need to use the correct path to read the file.
 
     5. Ensure each agent receives the relevant input from the previous steps.
 
