@@ -17,8 +17,8 @@ def fetch_news(number_of_news=2):
     Returns:
         list[dict]: A list of dictionaries containing the news article data for further processing.
     """
-    # Fetch the news data (replace with actual API)
-    url = "https://f3e74836-6f41-4a24-be68-d0de23251b88.mock.pstmn.io/news"  # Mock URL
+
+    url = f"https://api.thenewsapi.com/v1/news/top?api_token={NEWS_API_KEY}&locale=us&limit={number_of_news}"
     headers = {}
 
     response = requests.get(url, headers=headers)
@@ -31,11 +31,30 @@ def fetch_news(number_of_news=2):
             uuid = news_item.get("uuid", "")
             title = news_item.get("title", "Untitled")
             description = news_item.get("description", "No description available.")
+            image_url = news_item.get("image_url", None)
+            output_dir = './swarmzero-data/output/images/' + uuid
+            image_path = os.path.join(output_dir, 'default.jpg')
+            os.makedirs(output_dir, exist_ok=True)
+
+            try:
+                img_response = requests.get(image_url)
+                if img_response.status_code == 200:
+                    with open(image_path, 'wb') as img_file:
+                        img_file.write(img_response.content)
+                    print(f"Image saved to {image_path}")
+                else:
+                    print(f"Failed to download image from {image_url}")
+                    image_path = None
+
+            except Exception as e:
+                print(f"Error downloading image: {e}")
+                image_path = None
 
             articles.append({
                 "uuid": uuid,
                 "title": title,
-                "description": description
+                "description": description,
+                "default_image": image_path
             })
 
         return articles

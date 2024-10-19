@@ -41,7 +41,7 @@ segment_model_list = [
 ]
 
 
-def text_to_image(prompt: str, model_id: str = text2img_model_list[1]):
+def text_to_image(prompt: str, model_id: str = text2img_model_list[9]):
     """
     This function generates an image from a text prompt using the Livepeer AI API.
 

@@ -7,7 +7,7 @@ def video_editor(video_files: list[str], audio_files: list[str], output_filename
     then concatenates them. It also concatenates the audio files sequentially and combines them into
     the final video output without overlapping audio.
 
-    :param video_files: A list of paths to video files.
+    :param video_files: A list of paths (they are full path) to video files.
     :param audio_files: A list of paths to audio files (mp3).
     :param output_filename: The path to the output video file.
     :return: The path to the output video file.
