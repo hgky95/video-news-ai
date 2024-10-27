@@ -1,5 +1,8 @@
-import asyncio
+import time
 
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from dotenv import load_dotenv
 
 from app import livepeer_swarm
@@ -7,20 +10,31 @@ from app import livepeer_swarm
 
 load_dotenv()
 
+app = FastAPI()
 
-async def main():
-    print(
-        "Welcome to the Livepeer Youtube Video Generator Swarm!\nVisit https://SwarmZero.ai to learn more.\n\nType "
-        "'exit' to quit.\n"
-    )
+origins = [
+    "http://localhost:8000",
+    "http://localhost:3000",
+]
 
-    while True:
-        prompt = input("\n\nEnter your prompt: \n\n")
-        if prompt.lower() == "exit":
-            break
-        response = await livepeer_swarm.chat(prompt)
-        print(response)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+class ChatRequest(BaseModel):
+    prompt: str
 
-if __name__ == "__main__":
-    asyncio.run(main())
+@app.post("/chat/")
+async def chat(request: ChatRequest):
+    try:
+        if request.prompt.lower() == "exit":
+            return {"response": "Hope you're enjoy, see you!"}
+        video_id = await livepeer_swarm.chat(request.prompt)
+        return {"video_id": video_id}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+

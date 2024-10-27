@@ -1,24 +1,23 @@
 import os
 import requests
 from dotenv import load_dotenv
-from app.tools import text_to_speech
 
 load_dotenv()
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
 
-def fetch_news(number_of_news=2):
+def fetch_news(number_of_news=2, categories="sport"):
     """
-    Fetches news articles and prepares them for use by agents in a multi-agent system.
+    Fetches news articles based on the number of news and the categories from input
 
     Args:
-        number_of_news (int): Number of news articles to fetch.
+        number_of_news (int): Number of news to fetch.
+        categories: categories of news such as business/tech. Each category is separated by comma. For example, "business,tech"
 
     Returns:
         list[dict]: A list of dictionaries containing the news article data for further processing.
     """
-
-    url = f"https://api.thenewsapi.com/v1/news/top?api_token={NEWS_API_KEY}&locale=us&limit={number_of_news}"
+    url = f"https://api.thenewsapi.com/v1/news/top?api_token={NEWS_API_KEY}&locale=us&limit={number_of_news}&categories={categories}"
     headers = {}
 
     response = requests.get(url, headers=headers)
@@ -31,30 +30,11 @@ def fetch_news(number_of_news=2):
             uuid = news_item.get("uuid", "")
             title = news_item.get("title", "Untitled")
             description = news_item.get("description", "No description available.")
-            image_url = news_item.get("image_url", None)
-            output_dir = './swarmzero-data/output/images/' + uuid
-            image_path = os.path.join(output_dir, 'default.jpg')
-            os.makedirs(output_dir, exist_ok=True)
-
-            try:
-                img_response = requests.get(image_url)
-                if img_response.status_code == 200:
-                    with open(image_path, 'wb') as img_file:
-                        img_file.write(img_response.content)
-                    print(f"Image saved to {image_path}")
-                else:
-                    print(f"Failed to download image from {image_url}")
-                    image_path = None
-
-            except Exception as e:
-                print(f"Error downloading image: {e}")
-                image_path = None
 
             articles.append({
                 "uuid": uuid,
                 "title": title,
-                "description": description,
-                "default_image": image_path
+                "description": description
             })
 
         return articles

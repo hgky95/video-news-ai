@@ -7,7 +7,6 @@ type = "dev"
 [timeout]
 llm = 60
 
-# 1. News Aggregator Agent
 
 [News_Aggregator_Agent]
 model = "gpt-4o-mini"
@@ -16,13 +15,11 @@ timeout = 60
 instruction = """
 You are a news aggregator agent. Your role is to gather the latest news from the defined API.
 """
-
 tools = [
     { module = "app.tools", name = "fetch_news" }
 ]
 
 
-# 2. Audio Narration Generator Agent
 [Audio_Narration_Agent]
 model = "gpt-4o-mini"
 environment = "dev"
@@ -30,12 +27,10 @@ timeout = 60
 instruction = """
 You are an audio narration generator agent. Your role is to convert the summarized text for each news story from 'News_Aggregator_Agent' into audio.
 """
-
 tools = [
     { module = "app.tools", name = "text_to_speech" }
 ]
 
-# 3. Script Writing Agent for Visuals
 [Script_Writer_Agent]
 model = "gpt-4o-mini"
 environment = "dev"
@@ -46,7 +41,6 @@ Based on the summarization from the top news stories, write a short visual scrip
 Each news story should have at least **2 accompanying images**.
 """
 
-# 4. Scene Prompt and Image Generation
 
 [Scene_Prompt_Generator_Agent]
 model = "gpt-4o-mini"
@@ -54,7 +48,7 @@ environment = "dev"
 timeout = 60
 instruction = """
 You are a scene prompt generator agent. For each news summary, create detailed image prompts to generate visuals relevant to the content.
-Ensure that each news story has at least **2 images** that align with the summarized audio.
+Ensure that each news story has at least **3 images**.
 """
 
 [Scene_Image_Generator_Agent]
@@ -63,15 +57,13 @@ environment = "dev"
 timeout = 60
 instruction = """
 You are a scene image generator agent. Use the prompts from the Scene Prompt Generator Agent to generate the images for each news summary.
-Ensure that each news story has at least **2 images**.
+Ensure that each news story has at least **3 images**.
 Return the URLs of the generated images.
 """
-
 tools = [
     { module = "app.tools", name = "text_to_image" }
 ]
 
-# 5. Video Creation: Scene to Video
 
 [Scene_Image_to_Video_Generator_Agent]
 model = "gpt-4o-mini"
@@ -81,12 +73,10 @@ instruction = """
 You are a scene image to video generator agent.
 Create short video segments for each news summary using the images from the Scene Image Generator Agent and the default images found at `./swarmzero-data/output/images/<uuid>/default.jpg`, provided by the News Aggregator Agent.
 """
-
 tools = [
     { module = "app.tools", name = "image_to_video" }
 ]
 
-# 6. Video Editor
 
 [Video_Editor_Agent]
 model = "gpt-4o-mini"
@@ -94,17 +84,11 @@ environment = "dev"
 timeout = 60
 instruction = """
 You are a video editor agent. Combine the audio narration and video segments to create the final video.
-Input parameters:
-- video_files: A list of full paths (often start with `./swarmzero-data/output/<news_topic>/<agent_type>/`) to video files.
-- audio_files: A list of full paths to audio files (mp3).
-- output_filename: The path to the output video file
 """
-
 tools = [
     { module = "app.tools", name = "video_editor" }
 ]
 
-# 7. YouTube Upload for POC
 
 [Youtube_Upload_Agent]
 model = "gpt-4o-mini"
@@ -113,9 +97,8 @@ timeout = 60
 instruction = """
 You are a youtube upload agent on a video production team.
 You should use the videos from the video editor agent and upload them to youtube.
-You should also create a title, description and keywords for the video.
+You create a title, description and keywords for the video by yourself and use it to upload to Youtube.
 """
-
 tools = [
     { module = "app.tools", name = "upload_video" }
 ]
