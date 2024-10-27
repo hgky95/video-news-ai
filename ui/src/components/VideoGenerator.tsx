@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 
+const BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API || "";
+
 export function VideoGenerator() {
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +18,7 @@ export function VideoGenerator() {
     setVideoUrl("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/chat/", {
+      const response = await fetch(BACKEND_API, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +35,7 @@ export function VideoGenerator() {
       const fullVideoUrl = `https://youtube.com/shorts/${videoId}`;
       setVideoUrl(fullVideoUrl);
     } catch (err) {
-      setError("An error occurred while generating the video");
+      setError("An error occurred while generating the video" + err);
     } finally {
       setIsLoading(false);
     }

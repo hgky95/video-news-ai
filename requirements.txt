@@ -110,6 +110,7 @@ oauthlib==3.2.2
 ollama==0.3.3
 onnxruntime==1.16.3
 openai==1.52.0
+opencv-python==4.10.0.84
 openpyxl==3.1.5
 opentelemetry-api==1.27.0
 opentelemetry-exporter-otlp-proto-common==1.27.0
@@ -127,7 +128,7 @@ orjson==3.10.7
 overrides==7.7.0
 packaging==24.1
 pandas==2.2.3
-Pillow==9.5.0
+Pillow==10.2.0
 pinecone-client==5.0.1
 pinecone-plugin-inference==1.1.0
 pinecone-plugin-interface==0.0.7
