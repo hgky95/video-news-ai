@@ -79,6 +79,12 @@ The application is ready on: `http://localhost:3000`
 ![video-news-ai](https://github.com/user-attachments/assets/f51d175a-4b40-4556-aacb-202183e8ff07)
 
 
+## Potential improvement:
+1. Implement a cron job for scheduled video publishing.
+2. Expand distribution to TikTok and Twitter.
+3. Add advanced editing features and human-like TTS.
+4. Optimize the prompt to ensure the tool runs with stability.
+
 ## Acknowledgement
 [SwarmZero.ai](https://swarmzero.ai/): a decentralized platform designed to empower AI researchers, machine learning engineers, and agent builders
 
