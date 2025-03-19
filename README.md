@@ -4,6 +4,8 @@ This project was awarded the [Honourable Mention](https://youtu.be/SNLRZcjX0rc?t
 This project leverages SwarmZero AI and Livepeer AI to create an AI-driven news video generator. The system starts with a News Aggregator Agent that fetches real-time news from external APIs. The Audio Narration Agent converts news descriptions into speech, and a series of agents—Scene Prompt Generator, Image Generator, and Image-to-Video Generator—create engaging visuals. These images and narration are combined into short video segments through the Video Editor Agent. Finally, the video is uploaded to YouTube via the YouTube Upload Agent. The project automates content creation, using AI and decentralized media pipelines, allowing for seamless generation of news videos and offering a unique tool for creators.
 
 The SwarmZero AI allows user to use their preferred LLM model from OpenAI (gpt4, gpt4o, etc), Anthropic (3.5 sonnet, etc) or other open source LLMs by simply defining the model name in the configuration.
+## Demonstration
+![video-news-ai](https://github.com/user-attachments/assets/f51d175a-4b40-4556-aacb-202183e8ff07)
 
 ## Swarm Agents - Workflow
 ![video-news-ai drawio](https://github.com/user-attachments/assets/c2976ada-4672-46f1-a931-3af0036b90e9)
@@ -78,7 +80,6 @@ The application is ready on: `http://localhost:3000`
 2. Click on 'Generate' button
 3. Wait for few minutes for generating process
 4. Open browser and access to your Youtube channel to check the new video
-![video-news-ai](https://github.com/user-attachments/assets/f51d175a-4b40-4556-aacb-202183e8ff07)
 
 
 ## Potential improvement:
